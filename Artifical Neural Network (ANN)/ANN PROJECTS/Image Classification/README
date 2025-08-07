@@ -1,0 +1,48 @@
+# 🖼️ Image Classification on CIFAR-10 Dataset 🚀
+
+## 📋 Overview
+This project implements a simple fully connected neural network using **TensorFlow** and **Keras** to classify images from the **CIFAR-10** dataset.  
+The CIFAR-10 dataset contains 60,000 color images (32x32) in 10 classes.
+
+## 📊 Dataset
+- 50,000 training images  
+- 10,000 test images  
+- 10 classes: ✈️ airplane, 🚗 automobile, 🐦 bird, 🐱 cat, 🦌 deer, 🐶 dog, 🐸 frog, 🐎 horse, 🚢 ship, 🚛 truck
+
+## 🔄 Preprocessing
+- Scaled pixel values from `[0, 255]` to `[0, 1]`  
+- Converted labels to **one-hot encoded** categorical format 🎯
+
+## 🏗️ Model Architecture
+- **Input Layer:** Flatten 32x32x3 images into a 3072-length vector  
+- **Hidden Layers:**  
+  - 3000 neurons with ReLU activation ⚡  
+  - 1000 neurons with ReLU activation ⚡  
+- **Output Layer:** 10 neurons with Softmax activation for classification 🎉  
+- Optimizer: SGD  
+- Loss Function: Categorical Crossentropy  
+
+## 🎯 Training
+- Number of epochs: 50 ⏳
+
+## 📈 Results
+- Training accuracy and loss shown during training  
+- Final evaluation accuracy printed on test set ✅
+
+## 🛠️ How to Run
+1. Open `cifar10_classification.ipynb` in Google Colab or Jupyter Notebook  
+2. Run all cells to train and evaluate the model  
+3. Modify model or hyperparameters to experiment 🎨
+
+---
+
+## 🚀 Future Improvements
+- Implement **Convolutional Neural Networks (CNNs)** for better image features 🖥️  
+- Add **Batch Normalization** and **Dropout** to improve training and reduce overfitting 🧼💧  
+- Try different optimizers like **Adam** for faster convergence ⚙️  
+
+---
+
+## 🔗 References
+- [TensorFlow CIFAR-10 Tutorial](https://www.tensorflow.org/tutorials/images/cnn)  
+- [Keras Documentation](https://keras.io/)  

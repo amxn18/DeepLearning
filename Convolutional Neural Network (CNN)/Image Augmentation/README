@@ -1,0 +1,44 @@
+# Image Augmentation with TensorFlow/Keras
+
+Overview
+
+This project demonstrates how to perform image augmentation using TensorFlow/Keras' ImageDataGenerator.  
+Image augmentation artificially expands the training dataset by creating modified versions of images, helping improve the robustness and generalization of deep learning models, especially in image classification tasks.
+
+---
+
+Features
+
+- Rotation  
+- Width and height shifting  
+- Shearing  
+- Zooming  
+- Horizontal flipping  
+- Fill modes to handle newly created pixels after transformation  
+
+---
+
+Dataset
+
+- Input: A sample image (e.g., cat.webp)  
+- Output: 20 augmented images saved inside the preview/ folder
+
+---
+
+Usage
+
+1. Load your image using load_img()  
+2. Convert the image to an array using img_to_array()  
+3. Reshape to add batch dimension  
+4. Create an ImageDataGenerator instance with desired augmentations  
+5. Generate augmented images using .flow() and save them  
+
+
+Why Use Image Augmentation?
+
+- Increase dataset size without collecting new data  
+- Reduce overfitting by introducing variety  
+- Improve model's ability to generalize to unseen data
+- Makes Model Robust
+
+---

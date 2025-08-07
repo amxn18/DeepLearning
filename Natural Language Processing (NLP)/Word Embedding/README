@@ -1,0 +1,38 @@
+# Word Embedding in NLP – Conceptual README
+
+## 1️⃣ Sentences as Input
+The process begins with a list of raw natural language sentences. These sentences represent simple human-readable input that needs to be processed into numerical form so it can be understood by a machine learning model.
+
+## 2️⃣ Vocabulary Size
+We define a vocabulary size, which is the total number of unique words the model can handle. This defines the range of word indices and also controls the dimensionality of the embedding space. The larger the vocabulary, the more words we can encode — but it also increases the model size.
+
+## 3️⃣ One-Hot Representation
+Each sentence is tokenized using one-hot encoding, which maps each word to an integer based on its position in a fixed-size vocabulary. This creates a list of integers for each sentence, but the length of each list may vary depending on the number of words in each sentence.
+
+## 4️⃣ Padding Sequences
+Neural networks require input sequences to be of the same length. Since our one-hot encoded sequences are of variable lengths, we use padding to ensure all sequences have equal length. This is typically done by adding zeros either before or after the sequences. Padding standardizes the input shape required for batch training and the embedding layer.
+
+## 5️⃣ Embedding Layer
+The embedding layer is a trainable layer in the model that maps each word index to a dense vector of fixed size. It helps the model learn word relationships, semantic meaning, and context during training. Each word is converted into a continuous-valued vector, which is better for neural network learning compared to sparse one-hot vectors.
+🔧 Parameters:
+1) vocabSize = Size of vocabulary
+2) embedding_dim = Number of features per word (e.g., 10)
+3) input_length = Number of words per sentence after padding
+
+This layer transforms each word index into a dense vector of real numbers (learned during training).
+It's trainable and helps the model learn word meanings in context.
+
+## 6️⃣ Fixed Sentence Length Requirement
+Because the embedding layer expects a fixed-length sequence as input, padding is an essential step. Without padding, variable-length sequences would cause shape mismatches and prevent the model from training properly. The fixed input length also ensures consistent output shape from the embedding layer.
+
+## 7️⃣ Model Compilation and Prediction
+The model is compiled with an optimizer and a loss function suitable for the task. In the case of word embeddings, the loss helps the model learn meaningful vector representations. After compilation, predictions on the padded input produce dense embeddings — a 2D matrix per sentence where each row corresponds to the embedded vector for a word.
+
+## ✅ Summary
+This pipeline includes key NLP preprocessing concepts:
+- Creating a vocabulary of known words
+- Encoding text into integers using one-hot representation
+- Ensuring uniform sequence length through padding
+- Mapping words to trainable dense vectors via an embedding layer
+- Preparing the model for training or inference with consistent input format
+

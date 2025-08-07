@@ -1,0 +1,60 @@
+# 📰 Fake News Classification using LSTM (Long Short-Term Memory) - README
+
+## 📖 Overview
+This project demonstrates a complete workflow for classifying fake news headlines using Natural Language Processing (NLP) with an LSTM-based model. The classification is binary: Fake (1) or Real (0).
+
+---
+
+## ⚙️ Workflow Steps
+
+### 1️⃣ Dataset Preparation
+- Load the dataset using `pandas`.
+- Handle bad lines using `on_bad_lines='skip'` and clean missing values using `dropna()`.
+- Extract `title` as the main feature and `label` as the target.
+
+### 2️⃣ Text Preprocessing (NLP Pipeline)
+- **Text Cleaning:** Remove all non-alphabetic characters using regex.
+- **Lowercasing:** Convert all text to lowercase for uniformity.
+- **Stopwords Removal:** Filter out common stopwords using `nltk.corpus.stopwords`.
+- **Stemming:** Reduce words to their root form using `PorterStemmer`.
+- Result: A cleaned `corpus` list containing processed sentences.
+
+### 3️⃣ Text Representation
+- **One Hot Encoding:** Convert words to unique integer indices within a vocabulary size (e.g., `vocabSize = 10000`).
+- **Padding Sequences:** Make all sentences equal in length using `pad_sequences()` so they can be fed into the LSTM model.
+
+### 4️⃣ Model Creation Using LSTM
+- **Embedding Layer:** Converts word indices into dense vector representations (`embeddingVectorFeatures = 40`).
+- **LSTM Layer:** Captures sequential dependencies and context.
+- **Dense Layer:** Binary classification using sigmoid activation.
+- **Model Compilation:** Loss = `binary_crossentropy`, Optimizer = `adam`, Metrics = `accuracy`.
+
+### 5️⃣ Model Training & Evaluation
+- Split dataset into training and testing sets (`train_test_split`).
+- Train using `model.fit()` with a batch size of `64` and `10` epochs.
+- **Evaluation Metrics:**
+  - Accuracy using `accuracy_score`.
+  - Confusion matrix using `confusion_matrix`.
+
+### 6️⃣ Hyperparameter Optimization
+- **Dropout Layers:** Added dropout layers with a rate of `0.3` to prevent overfitting and improve generalization.
+
+---
+
+## ✅ Key Concepts Explained
+
+- **One Hot Encoding:** Converts text to a matrix of integers representing unique words.
+- **Padding:** Ensures all inputs are of the same shape, required by neural networks.
+- **Embedding Layer:** Converts integers into dense vectors capturing semantic information.
+- **LSTM:** A type of RNN that solves the vanishing gradient problem and works well with sequence data like text.
+- **Dropout:** A regularization technique where some neurons are randomly disabled during training.
+- **Binary Classification:** Using sigmoid activation and binary cross-entropy loss.
+
+---
+
+## 💡 Notes
+- `input_length` in Embedding is deprecated; use `input_shape=(sentenceLength,)`.
+- `on_bad_lines='skip'` helps handle corrupted rows in the dataset.
+- Always convert model predictions to binary labels before using classification metrics.
+- Splitting dataset ensures fair model evaluation.
+

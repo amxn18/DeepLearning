@@ -1,0 +1,94 @@
+# 🧠💡 Customer Churn Prediction using ANN
+
+## 📌 Problem Statement
+The objective is to **predict whether a customer will churn** (leave the service) or not, using their demographic and account data.
+
+---
+
+## 📂 Dataset Info
+- Source: `data.csv`
+- Target: `Churn` (Yes = 1, No = 0)
+- Features: 26 (after preprocessing & encoding)
+
+---
+
+## 🔍 Workflow Overview
+
+```bash
+1️⃣ Drop irrelevant columns (e.g., customerID)
+2️⃣ Handle empty strings in TotalCharges and convert to float
+3️⃣ Replace 'No internet/phone service' ➝ 'No'
+4️⃣ Convert all binary categorical columns (Yes/No, Female/Male) to 1/0
+5️⃣ Apply One-Hot Encoding to:
+     - InternetService
+     - Contract
+     - PaymentMethod
+6️⃣ Normalize 'tenure', 'MonthlyCharges', 'TotalCharges' using MinMaxScaler
+7️⃣ Train-Test Split (80-20)
+8️⃣ ANN Model Training with EarlyStopping
+9️⃣ Evaluation: Accuracy, Confusion Matrix, Classification Report
+```
+
+---
+
+## 🧠 ANN Model Architecture
+
+```bash
+Input Layer:    26 Neurons (one per feature)
+Hidden Layer 1: 26 Neurons + ReLU + Dropout(0.2)
+Hidden Layer 2: 15 Neurons + ReLU + Dropout(0.2)
+Output Layer:    1 Neuron + Sigmoid
+```
+
+---
+
+## ⚙️ Model Compilation & Training
+
+```python
+model.compile(
+    optimizer='adam',
+    loss='binary_crossentropy',
+    metrics=['accuracy']
+)
+
+early_stop = keras.callbacks.EarlyStopping(
+    monitor='val_loss',
+    patience=5,
+    restore_best_weights=True
+)
+
+model.fit(x_train, y_train, validation_split=0.2, epochs=100, callbacks=[early_stop])
+```
+
+---
+
+## 📈 Evaluation
+
+✅ Training Accuracy ≈ 81.6%
+✅ Validation Accuracy ≈ 81.2%
+✅ Test Accuracy ≈ ~77.8%
+
+Precision, Recall, F1-Score printed using sklearn's `classification_report`.
+Confusion Matrix plotted using seaborn heatmap.
+```
+
+---
+
+## 🧪 Tools & Libraries Used
+- pandas, numpy, matplotlib, seaborn
+- scikit-learn (preprocessing, train_test_split, metrics)
+- TensorFlow / Keras (Sequential API, EarlyStopping)
+```
+
+---
+
+## 📊 Visualization
+- Tenure distribution: churned vs retained users
+- Confusion matrix of predictions vs actual labels
+```
+
+---
+
+## 🔚 Final Notes
+- Model slightly overfits: monitor `val_loss` closely.
+- You can tune layers, neurons, dropout, or even try different optimizers for better results.

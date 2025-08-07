@@ -1,0 +1,84 @@
+# Credit Card Fraud Detection Using Neural Networks
+
+## Overview
+This project tackles credit card fraud detection, a binary classification problem with a highly imbalanced dataset where fraudulent transactions are rare compared to legitimate ones.
+
+Two different neural network approaches are implemented and compared:
+
+1. Standard Neural Network without handling class imbalance.
+2. Weighted Neural Network using cost-sensitive learning to address class imbalance.
+
+Evaluation is done using the ROC AUC score, which measures the model's ability to distinguish fraud cases from legitimate transactions across all thresholds.
+
+---
+
+## Dataset and Preprocessing
+- The dataset contains 30 features including anonymized PCA components and original features such as `Amount` and `Time`.
+- There are no missing values in the dataset.
+- The `Amount` and `Time` features are standardized using `StandardScaler` to normalize their scale with other features.
+- The dataset is split into training (70%) and testing (30%) sets.
+
+---
+
+## Approach 1: Standard Neural Network
+- A simple feed-forward neural network with one hidden dense layer of 64 neurons and ReLU activation.
+- Output layer uses sigmoid activation to predict the probability of fraud.
+- Trained with binary cross-entropy loss and Adam optimizer without addressing class imbalance.
+- The model tends to be biased toward the majority class, often missing many fraud cases.
+- ROC AUC score for this model is approximately 0.961, indicating decent but improvable performance.
+
+---
+
+## Approach 2: Weighted Neural Network (Cost-Sensitive Learning)
+- Introduces class weights during training to penalize misclassification of the minority fraud class more heavily.
+- Class weights are defined based on class distribution: the minority class (fraud) is assigned a much higher weight compared to the majority class (legitimate).
+- In this project, weights assigned were:
+  - Legitimate transactions (class 0): weight = 1
+  - Fraudulent transactions (class 1): weight = 550
+- This weighting means the model incurs a 550 times higher loss penalty for misclassifying fraud cases compared to misclassifying legitimate ones.
+- By doing so, the model focuses more on correctly identifying fraud, compensating for the severe class imbalance without oversampling or undersampling.
+- Uses the same neural network architecture and training parameters as Approach 1.
+- Cost-sensitive training improves model sensitivity to fraud, increasing recall and overall detection.
+- ROC AUC score improves to approximately 0.971, showing better distinction of fraud cases.
+
+---
+
+## Why and How We Assigned Class Weights
+- The dataset is highly imbalanced: fraudulent transactions are around 0.17% of all samples, while legitimate transactions make up about 99.83%.
+- Directly training without accounting for this imbalance causes the model to be biased toward predicting the majority class.
+- To combat this, we calculate class weights inversely proportional to their frequencies.
+- This gives more importance to minority class during loss calculation, effectively telling the model “missing a fraud case is much worse than missing a legitimate transaction.”
+- Implementing class weights avoids the need for data resampling, preserving the original data distribution while improving model fairness and sensitivity.
+
+---
+
+## What is a Cost-Sensitive Neural Network?
+- A cost-sensitive neural network applies different penalties for errors on each class during training.
+- This approach helps the model to focus more on rare but important classes by increasing the loss for misclassifications of those classes.
+- Especially useful in highly imbalanced datasets like credit card fraud detection.
+
+---
+
+## Evaluation Metrics: ROC AUC Score
+- Accuracy is misleading on imbalanced data because predicting the majority class yields high accuracy but poor fraud detection.
+- The ROC (Receiver Operating Characteristic) curve plots the trade-off between True Positive Rate (Recall) and False Positive Rate at various thresholds.
+- The Area Under the Curve (AUC) summarizes this performance into a single number between 0 and 1.
+- Higher ROC AUC indicates better ability of the model to rank fraudulent transactions higher than legitimate ones.
+- ROC AUC is threshold-independent and robust against class imbalance, making it an ideal metric for fraud detection.
+
+---
+
+## Summary and Insights
+- The standard neural network provides a baseline performance but struggles with the class imbalance problem.
+- Introducing class weights through cost-sensitive learning significantly improves fraud detection.
+- The increase in ROC AUC score from ~0.961 to ~0.971 demonstrates the effectiveness of weighting the minority class.
+- Using ROC AUC for evaluation provides a holistic view of model performance across all decision thresholds, crucial for real-world fraud detection.
+
+---
+
+## Conclusion
+Addressing class imbalance via weighted neural networks is a practical and effective approach for improving fraud detection in imbalanced datasets. ROC AUC score is the preferred metric to evaluate such models, providing reliable insight into their ability to detect rare but critical fraudulent transactions.
+
+Minimal adjustments to the training procedure, such as class weighting, can lead to meaningful improvements without altering the dataset itself
+
+

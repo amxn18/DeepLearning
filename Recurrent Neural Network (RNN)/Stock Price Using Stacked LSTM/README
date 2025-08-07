@@ -1,0 +1,59 @@
+📄 PROJECT: Stock Price Prediction using Stacked LSTM
+
+📌 WHAT IS THIS PROJECT ABOUT?
+This project focuses on predicting stock prices using a machine learning model called a Stacked Long Short-Term Memory (LSTM) neural network. Stock price prediction is a type of time series forecasting problem.
+
+--------------------------------------------------------
+🔍 CONCEPTS EXPLAINED:
+
+1️⃣ DATA PREPARATION:
+- **Reading CSV File:** A stock price dataset is read using pandas.
+- **Selecting Close Price:** Only the 'Close' prices are used as they represent final trading prices for each day.
+- **Plotting Data:** matplotlib is used to visualize the stock price trends before feeding it into the model.
+
+2️⃣ DATA NORMALIZATION:
+- **Why Normalize?** LSTM models perform better when input values are scaled between 0 and 1.
+- **Tool Used:** MinMaxScaler from sklearn.
+- **Feature Range:** Set to (0,1) to avoid larger values dominating smaller ones in training.
+
+3️⃣ TRAIN-TEST SPLIT:
+- **70%-30% Split:** 70% data for training, 30% for testing to evaluate the model’s generalization ability.
+- **Why Split?** To check if the model can predict unseen data effectively.
+
+4️⃣ CREATING DATASETS WITH TIME STEPS:
+- **Sliding Window Technique:** For time series, we use previous 'n' time steps as input to predict the next step.
+- **Time Step Used:** 100 time steps, meaning the model looks at the last 100 days to predict the 101st day.
+
+5️⃣ LSTM MODEL ARCHITECTURE:
+- **Stacked LSTM:** Multiple LSTM layers stacked together for deeper learning capability.
+- **Layers:**
+  - First LSTM Layer with return_sequences=True (so next layer gets sequences as input).
+  - Second LSTM Layer with return_sequences=True.
+  - Third LSTM Layer without return_sequences (since it’s the last LSTM layer).
+  - Dense Layer: Converts final LSTM output to a single value.
+- **Optimizer:** Adam, popular choice for its adaptive learning rate.
+- **Loss Function:** Mean Squared Error (MSE), suitable for regression tasks.
+
+6️⃣ MODEL TRAINING:
+- **Epochs:** 100 iterations over the entire dataset.
+- **Batch Size:** 64 samples per batch.
+- **Validation Data:** Splitting part of the data during training to monitor overfitting.
+
+7️⃣ PREDICTION AND INVERSE TRANSFORMATION:
+- **Predict on Train and Test Data:** To check model performance.
+- **Inverse Transform:** Since data was scaled, predictions are brought back to original scale using inverse_transform.
+
+8️⃣ PERFORMANCE EVALUATION:
+- **Metric Used:** Root Mean Squared Error (RMSE) calculated from MSE.
+- **Purpose:** RMSE tells how far predictions are from actual values in the original scale.
+
+9️⃣ VISUALIZATION:
+- **Why Visualize?** To see how closely the model's predictions follow the actual stock prices.
+- **Plots:**
+  - Actual Stock Prices.
+  - Predicted Stock Prices on Training Data.
+  - Predicted Stock Prices on Testing Data.
+- **Observation:** Overfitting/underfitting can be visually inspected here.
+
+--------------------------------------------------------
+

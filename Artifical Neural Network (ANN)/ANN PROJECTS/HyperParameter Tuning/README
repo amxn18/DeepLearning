@@ -1,0 +1,44 @@
+# 🚀 Air Quality Prediction with Hyperparameter Tuning using Keras Tuner
+
+This project performs regression on environmental data to predict **PM 2.5** values using a neural network.  
+It applies **Hyperparameter Tuning** using **Keras Tuner's RandomSearch** on a fully connected feed-forward network built with **TensorFlow** and **Keras**.
+
+---
+
+## 📁 Dataset
+
+- **File**: `Real_Combine.csv`
+- **Target Variable**: `PM 2.5`
+- **Features**: Temperature, Pressure, Humidity, Visibility, Wind Speed, etc.
+
+---
+
+## 📌 Objective
+
+To predict PM 2.5 air quality index using a deep learning model with **optimal architecture**:
+- Number of layers
+- Number of neurons per layer
+- Learning rate
+
+---
+
+## ⚙️ Workflow
+
+```python
+1. Import Libraries → numpy, pandas, keras, sklearn, keras_tuner
+2. Load & Clean Data → drop NaNs and infinities
+3. Split into Features (X) & Target (y)
+4. Train-Test Split (70% train, 30% test)
+5. Define `buildModel()` function for dynamic architecture
+6. Use `RandomSearch` from Keras Tuner to find best model
+7. Fit the tuner → tune layers, neurons, and learning rate
+
+
+🧠 Model Tuning Details
+🔢 Hidden Layers: between 2 and 5
+🧩 Neurons per Layer: 32 to 512 (step=32)
+🧪 Activation: ReLU
+📉 Loss Function: Mean Absolute Error
+⚙️ Optimizer: Adam
+🔍 Learning Rate: [1e-2, 1e-3, 1e-4]
+📊 Output: 1 neuron with linear activation (for regression)
